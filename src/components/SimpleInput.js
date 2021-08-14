@@ -1,4 +1,5 @@
 import { useState } from "react";
+import doneGif from "../assets/done.gif";
 import gif from "../assets/nope.gif";
 
 const SimpleInput = (props) => {
@@ -9,6 +10,8 @@ const SimpleInput = (props) => {
   const enteredNameIsValid = enteredName.trim() !== "";
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
 
+  const [done, setDone] = useState(false);
+
   let formIsValid = false;
 
   if (enteredNameIsValid) {
@@ -17,9 +20,14 @@ const SimpleInput = (props) => {
 
   const nameInputChangeHandler = (e) => {
     setEnteredName(e.target.value);
+    setDone(false);
   };
   const nameInputOnBlurHandler = () => {
     setEnteredNameTouched(true);
+  };
+
+  const nameInputFocusHandler = () => {
+    setDone(false);
   };
 
   const formSubmissionHandler = (e) => {
@@ -32,7 +40,7 @@ const SimpleInput = (props) => {
     }
 
     setEnteredName(enteredName);
-
+    setDone(true);
     setEnteredName("");
     setEnteredNameTouched(false);
   };
@@ -46,6 +54,7 @@ const SimpleInput = (props) => {
       <div className={nameInputClasses}>
         <label htmlFor="name">Your Name</label>
         <input
+          onFocus={nameInputFocusHandler}
           onBlur={nameInputOnBlurHandler}
           onChange={nameInputChangeHandler}
           value={enteredName}
@@ -56,6 +65,7 @@ const SimpleInput = (props) => {
           <p className="error-text">Name must not be empty!</p>
         )}
         {nameInputIsInvalid && <img className="gif" src={gif} alt="nope" />}
+        {done && <img className="done" src={doneGif} alt="done" />}
       </div>
 
       <div className="form-actions">

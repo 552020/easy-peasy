@@ -117,3 +117,8 @@ img {
   margin: auto;
   max-width: 100%;
 }
+
+.done {
+  padding-top: 2vh;
+  margin: 0;
+}
