@@ -1,6 +1,7 @@
 import { useState } from "react";
 import doneGif from "../assets/done.gif";
 import gif from "../assets/nope.gif";
+import notry from "../assets/notry.gif";
 
 const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState("");
@@ -11,6 +12,8 @@ const SimpleInput = (props) => {
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
 
   const [done, setDone] = useState(false);
+
+  const [noTry, setNoTry] = useState(false);
 
   let formIsValid = false;
 
@@ -28,6 +31,7 @@ const SimpleInput = (props) => {
 
   const nameInputFocusHandler = () => {
     setDone(false);
+    setNoTry(true);
   };
 
   const formSubmissionHandler = (e) => {
@@ -63,6 +67,9 @@ const SimpleInput = (props) => {
         />
         {nameInputIsInvalid && (
           <p className="error-text">Name must not be empty!</p>
+        )}
+        {noTry && !nameInputIsInvalid && !done && (
+          <img className="noTry" src={notry} alt="do or do not" />
         )}
         {nameInputIsInvalid && <img className="gif" src={gif} alt="nope" />}
         {done && <img className="done" src={doneGif} alt="done" />}
