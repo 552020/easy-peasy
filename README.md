@@ -1,3 +1,1 @@
-# easy-peasy
-
-[online](https://easy-peasy-123.netlify.app/)
+[# easy-peasy](https://easy-peasy-123.netlify.app/)
