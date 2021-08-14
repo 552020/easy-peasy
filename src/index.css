@@ -110,3 +110,10 @@ button:disabled:active {
 .error-text {
   color: #b40e0e;
 }
+
+img {
+  max-height: 100%;
+  display: block;
+  margin: auto;
+  max-width: 100%;
+}

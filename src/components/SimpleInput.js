@@ -55,7 +55,7 @@ const SimpleInput = (props) => {
         {nameInputIsInvalid && (
           <p className="error-text">Name must not be empty!</p>
         )}
-        {nameInputIsInvalid && <img src={gif} alt="nope" />}
+        {nameInputIsInvalid && <img className="gif" src={gif} alt="nope" />}
       </div>
 
       <div className="form-actions">
