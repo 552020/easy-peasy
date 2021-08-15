@@ -1,9 +1,11 @@
 import useMyInput from "../hooks/use-myinput";
 
+const isNotEmpty = (value) => value.trim() !== "";
+
 const BasicForm = (props) => {
   const {
     enteredValue: firstNameEnteredValue,
-    setEnteredValue: setFirstNameEnteredValue,
+
     isValid: firstNameIsValid,
     isTouched: firstNameIsTouched,
     hasError: firstNameHasError,
@@ -11,22 +13,22 @@ const BasicForm = (props) => {
     changeHandler: firstNameChangeHandler,
     blurHandler: firstNameBlurHandler,
     reset: firstNameReset,
-  } = useMyInput((value) => value.trim() !== "");
+  } = useMyInput(isNotEmpty);
 
   const {
     enteredValue: lastNameEnteredValue,
-    setEnteredValue: setLastNameEnteredValue,
+
     isValid: lastNameIsValid,
     isTouched: lastNameIsTouched,
     hasError: lastNameHasError,
     changeHandler: lastNameChangeHandler,
     blurHandler: lastNameBlurHandler,
     reset: lastNameReset,
-  } = useMyInput((value) => value.trim() !== "");
+  } = useMyInput(isNotEmpty);
 
   const {
     enteredValue: emailEnteredValue,
-    setEnteredValue: setEmailEnteredValue,
+
     isValid: emailIsValid,
     isTouched: emailIsTouched,
     hasError: emailHasError,
@@ -34,7 +36,7 @@ const BasicForm = (props) => {
     changeHandler: emailChangeHandler,
     blurHandler: emailBlurHandler,
     reset: emailReset,
-  } = useMyInput((value) => value.trim() !== "");
+  } = useMyInput((value) => value.includes("@"));
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
