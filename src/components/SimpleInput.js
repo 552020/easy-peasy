@@ -5,19 +5,22 @@ import notry from "../assets/notry.gif";
 
 const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState("");
-
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
-
   const enteredNameIsValid = enteredName.trim() !== "";
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
 
-  const [done, setDone] = useState(false);
+  const [enteredEmail, setEnteredEmail] = useState("");
+  const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
+  const enteredEmailIsValid =
+    enteredEmail.includes("@") && enteredEmail.trim().length > 3;
+  const emailInputIsInvalid = !enteredEmailIsValid && enteredEmailTouched;
 
+  const [done, setDone] = useState(false);
   const [noTry, setNoTry] = useState(false);
 
   let formIsValid = false;
 
-  if (enteredNameIsValid) {
+  if (enteredNameIsValid && enteredEmailIsValid) {
     formIsValid = true;
   }
 
@@ -34,24 +37,43 @@ const SimpleInput = (props) => {
     setNoTry(true);
   };
 
+  const emailInputChangeHandler = (e) => {
+    setEnteredEmail(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const emailInputOnBlurHandler = () => {
+    setEnteredEmailTouched(true);
+  };
+
+  const emailInputFocusHandler = () => {};
+
   const formSubmissionHandler = (e) => {
     e.preventDefault();
 
     setEnteredNameTouched(true);
+    setEnteredEmailTouched(true);
 
-    if (!enteredNameIsValid) {
+    if (!enteredNameIsValid && !enteredEmailIsValid) {
       return;
     }
 
     setEnteredName(enteredName);
+    setEnteredEmailTouched(enteredEmailIsValid);
     setDone(true);
     setEnteredName("");
+    setEnteredEmail("");
     setEnteredNameTouched(false);
+    setEnteredEmailTouched(false);
   };
 
   const nameInputClasses = !nameInputIsInvalid
     ? "form-control"
-    : "form-control invalid";
+    : "form-control invalid-name";
+
+  const emailInputClasses = !emailInputIsInvalid
+    ? "form-control"
+    : "form-control invalid-email";
 
   return (
     <form onSubmit={formSubmissionHandler}>
@@ -73,6 +95,20 @@ const SimpleInput = (props) => {
         )}
         {nameInputIsInvalid && <img className="gif" src={gif} alt="nope" />}
         {done && <img className="done" src={doneGif} alt="done" />}
+      </div>
+      <div className={emailInputClasses}>
+        <label htmlFor="email">Your e-Mail</label>
+        <input
+          onFocus={emailInputFocusHandler}
+          onBlur={emailInputOnBlurHandler}
+          onChange={emailInputChangeHandler}
+          value={enteredEmail}
+          type="email"
+          id="email"
+        />
+        {emailInputIsInvalid && (
+          <p className="error-text">Please entere a valid e-Mail!</p>
+        )}
       </div>
 
       <div className="form-actions">
